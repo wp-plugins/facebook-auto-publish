@@ -121,6 +121,7 @@ More questions ? [Drop a mail](http://xyzscripts.com/members/support/ "XYZScript
 * First official launch.
 
 == Upgrade Notice ==
+First version
 
 == More Information ==
 
