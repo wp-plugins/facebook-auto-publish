@@ -25,7 +25,7 @@ A quick look into Facebook Auto Publish :
 
 The Facebook Auto Publish lets you publish posts automatically from your blog to Facebook. You can publish your posts to Facebook as simple text message, text message with image or as attached link to your blog. The plugin supports filtering posts based on  custom post-types as well as categories.
 
-The prominent features of  the social media auto publish plugin are highlighted below.
+The prominent features of  the Facebook Auto Publish plugin are highlighted below.
 
 = Supported Mechanisms =
 
@@ -121,7 +121,6 @@ More questions ? [Drop a mail](http://xyzscripts.com/members/support/ "XYZScript
 * First official launch.
 
 == Upgrade Notice ==
-First version
 
 == More Information ==
 
