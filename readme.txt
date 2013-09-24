@@ -4,7 +4,7 @@ Donate link: http://xyzscripts.com/donate/
 Tags:  facebook, facebook auto publish, publish post to facebook, add link to facebook, facebook publishing, post to facebook, post to fb, social media auto publish, social media publishing, social network auto publish, social media, social network
 Requires at least: 2.8
 Tested up to: 3.6
-Stable tag: 1.0
+Stable tag: 1.0.1
 License: GPLv2 or later
 
 Publish posts automatically to Facebook page or profile.
@@ -117,10 +117,20 @@ More questions ? [Drop a mail](http://xyzscripts.com/members/support/ "XYZScript
 
 == Changelog ==
 
+= Facebook Auto Publish 1.0.1 =
+* Default image fetch logic for auto publish updated.
+* Thumbnail image logic updated.
+
 = Facebook Auto Publish 1.0 =
 * First official launch.
 
 == Upgrade Notice ==
+
+= Facebook Auto Publish 1.0.1 =
+If you had issues  with default image used for auto publishing, you may apply this upgrade.
+
+= Facebook Auto Publish 1.0 =
+First official launch.
 
 == More Information ==
 

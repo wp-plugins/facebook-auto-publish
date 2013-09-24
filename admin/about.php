@@ -24,9 +24,9 @@ Facebook Auto Publish automatically publishes posts from your blog to your  Face
 	<tr style="background-color: #EDEDED">
 		<td><h2>Feature group</h2></td>
 		<td><h2>Feature</h2></td>
-		<td><h2>FBAP Free</h2>
+		<td><h2>Free</h2>
 		</td>
-		<td><h2>SMAP Premium</h2></td>
+		<td><h2>Premium</h2></td>
 	</tr>
 	<!-- Supported Media  -->
 	<tr>
