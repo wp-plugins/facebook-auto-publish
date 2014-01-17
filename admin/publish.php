@@ -169,7 +169,12 @@ function xyz_fbap_link_publish($post_ID) {
 		
 		$description=strip_tags($description);		
 		$description=strip_shortcodes($description);
-
+	
+	   	$description=str_replace("&nbsp;","",$description);
+		//$description=str_replace(array("\r\n","\r","\n"), '', $description);
+	
+		$excerpt=str_replace("&nbsp;","",$excerpt);
+		//$excerpt=str_replace(array("\r\n","\r","\n"), '', $excerpt);
 		
 		if($useracces_token!="" && $appsecret!="" && $appid!="" && $post_permissin==1)
 		{
@@ -203,6 +208,9 @@ function xyz_fbap_link_publish($post_ID) {
 				$message4=str_replace('{POST_EXCERPT}', $excerpt, $message3);
 				$message5=str_replace('{POST_CONTENT}', $description, $message4);
 				$message5=str_replace('{USER_NICENAME}', $user_nicename, $message5);
+				
+				$message5=str_replace("&nbsp;","",$message5);
+				//$message5=str_replace(array("\r\n","\r","\n"), '', $message5);
 
                $disp_type="feed";
 				if($posting_method==1) //attach

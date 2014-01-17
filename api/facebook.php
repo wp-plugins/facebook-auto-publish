@@ -44,7 +44,7 @@ class FBAPFacebook extends FBAPBaseFacebook
    * shares the domain with other apps).
    * @see FBAPBaseFacebook::__construct in facebook.php
    */
-  public function __construct($config) {
+  public function __construct($config=array()) {
     if (!session_id()) {
       session_start();
     }
