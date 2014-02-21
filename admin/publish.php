@@ -12,47 +12,10 @@ foreach ($carr  as $cstyps ) {
 
 }
 
-
-function xyz_fbap_string_limit($string, $limit) {
-	
-	$space=" ";$appendstr=" ...";
-	if(mb_strlen($string) <= $limit) return $string;
-	if(mb_strlen($appendstr) >= $limit) return '';
-	$string = mb_substr($string, 0, $limit-mb_strlen($appendstr));
-	$rpos = mb_strripos($string, $space);
-	if ($rpos===false) 
-		return $string.$appendstr;
-   else 
-	 	return mb_substr($string, 0, $rpos).$appendstr;
-}
-
-function xyz_fbap_getimage($post_ID,$description_org)
-{
-	$attachmenturl="";
-	$post_thumbnail_id = get_post_thumbnail_id( $post_ID );
-	if($post_thumbnail_id!="")
-	{
-		$attachmenturl=wp_get_attachment_url($post_thumbnail_id);
-		$attachmentimage=wp_get_attachment_image_src( $post_thumbnail_id, full );
-		
-	}
-	else {
-		preg_match_all('/<img.+src=[\'"]([^\'"]+)[\'"].*>/is', $description_org, $matches);
-		if(isset($matches[1][0]))
-		$attachmenturl = $matches[1][0];
-		else {
-			apply_filters('the_content', $description_org);
-			preg_match_all('/<img.+src=[\'"]([^\'"]+)[\'"].*>/is', $description_org, $matches);
-			if(isset($matches[1][0]))
-				$attachmenturl = $matches[1][0];
-		}
-		
-	
-	}
-	return $attachmenturl;
-}
 function xyz_fbap_link_publish($post_ID) {
 	
+	if(isset($_POST['xyz_fbap_hidden_meta']) && $_POST['xyz_fbap_hidden_meta']==1)
+		return ;
 	
 	$get_post_meta=get_post_meta($post_ID,"xyz_fbap",true);
 	if($get_post_meta!=1)
@@ -84,8 +47,6 @@ function xyz_fbap_link_publish($post_ID) {
 	
 	$af=get_option('xyz_fbap_af');
 	
-		//////////////////////////////
-
 	$postpp= get_post($post_ID);global $wpdb;
 	$entries0 = $wpdb->get_results( 'SELECT user_nicename FROM '.$wpdb->prefix.'users WHERE ID='.$postpp->post_author);
 	
@@ -95,6 +56,7 @@ function xyz_fbap_link_publish($post_ID) {
 	if ($postpp->post_status == 'publish')
 	{
 		$posttype=$postpp->post_type;
+		$fb_publish_status=array();
 			
 		if ($posttype=="page")
 		{
@@ -171,10 +133,8 @@ function xyz_fbap_link_publish($post_ID) {
 		$description=strip_shortcodes($description);
 	
 	   	$description=str_replace("&nbsp;","",$description);
-		//$description=str_replace(array("\r\n","\r","\n"), '', $description);
 	
 		$excerpt=str_replace("&nbsp;","",$excerpt);
-		//$excerpt=str_replace(array("\r\n","\r","\n"), '', $excerpt);
 		
 		if($useracces_token!="" && $appsecret!="" && $appid!="" && $post_permissin==1)
 		{
@@ -210,7 +170,6 @@ function xyz_fbap_link_publish($post_ID) {
 				$message5=str_replace('{USER_NICENAME}', $user_nicename, $message5);
 				
 				$message5=str_replace("&nbsp;","",$message5);
-				//$message5=str_replace(array("\r\n","\r","\n"), '', $message5);
 
                $disp_type="feed";
 				if($posting_method==1) //attach
@@ -242,9 +201,6 @@ function xyz_fbap_link_publish($post_ID) {
 				}
 				else if($posting_method==3) //simple text message
 				{
-					//$message6=xyz_fbap_string_limit($message5, 900);
-					//$description_li=xyz_fbap_string_limit($description, 900);
-						
 					$attachment = array('message' => $message5,
 							'access_token' => $acces_token				
 					
@@ -253,8 +209,6 @@ function xyz_fbap_link_publish($post_ID) {
 				}
 				else if($posting_method==4 || $posting_method==5) //text message with image 4 - app album, 5-timeline
 				{
-					//$message6=xyz_fbap_string_limit($message5, 900);
-					//$description_li=xyz_fbap_string_limit($description, 900);
 					if($attachmenturl!="")
 					{
 						
@@ -265,7 +219,7 @@ function xyz_fbap_link_publish($post_ID) {
 							}
 							catch(Exception $e)
 							{
-								//echo $e->getmessage();
+								$fb_publish_status[$page_id."/albums"]=$e->getMessage();
 							}
 							foreach ($albums["data"] as $album) {
 								if ($album["type"] == "wall") {
@@ -296,12 +250,25 @@ function xyz_fbap_link_publish($post_ID) {
 				$result = $fb->api('/'.$page_id.'/'.$disp_type.'/', 'post', $attachment);}
 							catch(Exception $e)
 							{
-								//echo $e->getmessage();
+								$fb_publish_status[$page_id."/".$disp_type]=$e->getMessage();
 							}
 
 			}
 
 			
+			if(count($fb_publish_status)>0)
+				$fb_publish_status_insert=serialize($fb_publish_status);
+			else
+				$fb_publish_status_insert=1;
+			
+			$time=time();
+			$post_fb_options=array(
+					'postid'	=>	$post_ID,
+					'acc_type'	=>	"Facebook",
+					'publishtime'	=>	$time,
+					'status'	=>	$fb_publish_status_insert
+			);
+			update_option('xyz_fbap_post_logs', $post_fb_options);
 
 		}
 		

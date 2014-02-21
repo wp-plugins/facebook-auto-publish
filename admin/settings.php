@@ -121,15 +121,25 @@ if(isset($_POST['fb']) && $erf==0)
 		id="system_notice_area_dismiss">Dismiss</span>
 </div>
 <?php }
-if(isset($_GET['msg']) && $_GET['msg']==1)
+if(isset($_GET['msg']) && $_GET['msg']==2)
 {
 ?>
 <div class="system_notice_area_style0" id="system_notice_area">
-	Unable to authorize the linkedin application. Please check the details. &nbsp;&nbsp;&nbsp;<span
+	The state does not match. You may be a victim of CSRF. &nbsp;&nbsp;&nbsp;<span
 		id="system_notice_area_dismiss">Dismiss</span>
 </div>
 	<?php 
 }
+if(isset($_GET['msg']) && $_GET['msg']==3)
+{
+	?>
+<div class="system_notice_area_style0" id="system_notice_area">
+Unable to authorize the facebook application. Please check your curl/fopen and firewall settings. &nbsp;&nbsp;&nbsp;<span
+		id="system_notice_area_dismiss">Dismiss</span>
+</div>	
+<?php 
+}
+
 if(isset($_POST['fb']) && $erf==1)
 {
 	?>
@@ -178,6 +188,16 @@ function dethide(id)
 
 	</form>
 	<?php }
+	else if($af==0 && $appid!="" && $appsecret!="" && $fbid!="")
+	{
+		?>
+	<form method="post">
+	
+	<input type="submit" class="submit_fbap_new" name="fb_auth"
+	value="Reauthorize" title="Reauthorize the account" /><br><br>
+	
+	</form>
+	<?php }
 
 
 	if(isset($_GET['auth']) && $_GET['auth']==1 && get_option("xyz_fbap_fb_token")!="")
@@ -218,7 +238,7 @@ function dethide(id)
 
 
 			<div style="font-weight: bold;padding: 3px;">All fields given below are mandatory</div> 
-			<table class="widefat" style="width: 99%">
+			<table class="widefat xyz_fbap_widefat_table" style="width: 99%">
 				<tr valign="top">
 					<td width="50%">Application id
 					</td>
@@ -255,10 +275,22 @@ function dethide(id)
 							of your blog.<br />{USER_NICENAME} - Insert the nicename
 							of the author.
 						</div></td>
-					<td><textarea id="xyz_fbap_message" name="xyz_fbap_message"><?php if($ms4==""){ 
+	<td>
+	<select name="xyz_fbap_info" id="xyz_fbap_info" onchange="xyz_fbap_info_insert(this)">
+		<option value ="0" selected="selected">--Select--</option>
+		<option value ="1">{POST_TITLE}  </option>
+		<option value ="2">{PERMALINK} </option>
+		<option value ="3">{POST_EXCERPT}  </option>
+		<option value ="4">{POST_CONTENT}   </option>
+		<option value ="5">{BLOG_TITLE}   </option>
+		<option value ="6">{USER_NICENAME}   </option>
+		</select> </td></tr><tr><td>&nbsp;</td><td>
+		<textarea id="xyz_fbap_message"  name="xyz_fbap_message" style="height:80px !important;" ><?php if($ms4==""){ 
 								echo esc_textarea(get_option('xyz_fbap_message'));}?></textarea>
-					</td>
-				</tr>
+	</td></tr>
+				
+				
+				
 				<tr valign="top">
 					<td>Posting method
 					</td>
@@ -347,7 +379,7 @@ function dethide(id)
 				<tr valign="top">
 					<td>Select facebook pages for auto	publish
 					</td>
-					<td><select name="fbap_pages_list[]" multiple="multiple">
+					<td><select name="fbap_pages_list[]" multiple="multiple" style="height:auto !important;">
 							<option value="-1"
 							<?php if(in_array(-1, $fbap_pages_ids)) echo "selected" ?>>Profile	Page</option>
 							<?php 
@@ -402,7 +434,9 @@ function dethide(id)
         if(isset($_POST['post_types']))
 		$xyz_customtypes=$_POST['post_types'];
 
-
+        $xyz_fbap_peer_verification=$_POST['xyz_fbap_peer_verification'];
+        $xyz_fbap_premium_version_ads=$_POST['xyz_fbap_premium_version_ads'];
+		
 		$fbap_customtype_ids="";
 
 		if($xyz_customtypes!="")
@@ -419,6 +453,8 @@ function dethide(id)
 		update_option('xyz_fbap_include_pages',$xyz_fbap_include_pages);
 		update_option('xyz_fbap_include_categories',$fbap_category_ids);
 		update_option('xyz_fbap_include_customposttypes',$fbap_customtype_ids);
+		update_option('xyz_fbap_peer_verification',$xyz_fbap_peer_verification);
+		update_option('xyz_fbap_premium_version_ads',$xyz_fbap_premium_version_ads);
 
 	}
 
@@ -426,7 +462,9 @@ function dethide(id)
 	$xyz_fbap_include_pages=get_option('xyz_fbap_include_pages');
 	$xyz_fbap_include_categories=get_option('xyz_fbap_include_categories');
 	$xyz_fbap_include_customposttypes=get_option('xyz_fbap_include_customposttypes');
-
+	$xyz_fbap_peer_verification=esc_html(get_option('xyz_fbap_peer_verification'));
+	$xyz_fbap_premium_version_ads=esc_html(get_option('xyz_fbap_premium_version_ads'));
+	
 
 	?>
 		<h2>Basic Settings</h2>
@@ -434,7 +472,7 @@ function dethide(id)
 
 		<form method="post">
 
-			<table class="widefat" style="width: 99%">
+			<table class="widefat xyz_fbap_widefat_table" style="width: 99%">
 
 				<tr valign="top">
 
@@ -491,7 +529,7 @@ function dethide(id)
 								'hide_if_empty'      => false );
 
 						if(count(get_categories($args))>0)
-							echo str_replace( "<select", "<select multiple onClick=setcat(this) style='width:200px;height:100px;border:1px solid #cccccc;'", wp_dropdown_categories($args));
+							echo str_replace( "<select", "<select multiple onClick=setcat(this) style='width:200px;height:auto !important;border:1px solid #cccccc;'", wp_dropdown_categories($args));
 						else
 							echo "NIL";
 
@@ -534,9 +572,19 @@ function dethide(id)
 					</td>
 				</tr>
 
+				<tr valign="top">
+				
+				<td scope="row" colspan="1" width="50%">SSL peer verification	</td><td><select name="xyz_fbap_peer_verification" >
+				
+				<option value ="1" <?php if($xyz_fbap_peer_verification=='1') echo 'selected'; ?> >Enable </option>
+				
+				<option value ="0" <?php if($xyz_fbap_peer_verification=='0') echo 'selected'; ?> >Disable </option>
+				</select> 
+				</td></tr>
+								
 
 
-				<tr valign="top" id="xyz_fbap">
+				<tr valign="top">
 
 					<td  colspan="1">Enable credit link to author
 					</td>
@@ -551,6 +599,23 @@ function dethide(id)
 					</select>
 					</td>
 				</tr>
+				
+				<tr valign="top">
+
+					<td  colspan="1">Enable premium version ads
+					</td>
+					<td><select name="xyz_fbap_premium_version_ads" id="xyz_fbap_premium_version_ads">
+
+							<option value="1"
+							<?php if($xyz_fbap_premium_version_ads=='1') echo 'selected'; ?>>Yes</option>
+
+							<option
+								value="0"
+								<?php if($xyz_fbap_premium_version_ads=='0') echo 'selected'; ?>>No</option>
+					</select>
+					</td>
+				</tr>
+				
 
 
 				<tr>
@@ -619,6 +684,19 @@ function rd_cat_chn(val,act)
 		  jQuery("#cat_dropdown_span").show();
 	}
 	
+}
+
+function xyz_fbap_info_insert(inf){
+	
+    var e = document.getElementById("xyz_fbap_info");
+    var ins_opt = e.options[e.selectedIndex].text;
+    if(ins_opt=="0")
+    	ins_opt="";
+    var str=jQuery("textarea#xyz_fbap_message").val()+ins_opt;
+    jQuery("textarea#xyz_fbap_message").val(str);
+    jQuery('#xyz_fbap_info :eq(0)').prop('selected', true);
+    jQuery("textarea#xyz_fbap_message").focus();
+
 }
 </script>
 	<?php 

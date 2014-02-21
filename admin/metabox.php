@@ -9,6 +9,11 @@ function xyz_fbap_add_custom_box()
 if(isset($_GET['action']) && $_GET['action']=="edit")
 	{
 		$postid=$_GET['post'];
+		
+		$postpp= get_post($postid);
+		if($postpp->post_status=="publish")
+			add_meta_box("xyz_fbap1", ' ', 'xyz_fbap_addpostmetatags1') ;
+		
 		$get_post_meta=get_post_meta($postid,"xyz_fbap",true);
 		if($get_post_meta==1)
 			return ;
@@ -47,7 +52,15 @@ if(isset($_GET['action']) && $_GET['action']=="edit")
 	if(get_option('xyz_fbap_af')==0 && get_option('xyz_fbap_fb_token')!="")
 	add_meta_box( "xyz_fbap", '<strong>Facebook Auto Publish - Post Options</strong>', 'xyz_fbap_addpostmetatags') ;
 }
-
+function xyz_fbap_addpostmetatags1()
+{
+	?>
+	<input type="hidden" name="xyz_fbap_hidden_meta" value="1" >
+	<script type="text/javascript">
+		jQuery('#xyz_fbap1').hide();
+		</script>
+<?php 
+}
 function xyz_fbap_addpostmetatags()
 {
 	$imgpath= plugins_url()."/facebook-auto-publish/admin/images/";
@@ -87,10 +100,23 @@ function dethide_fbap(id)
 
 
 </script>
-<table>
+<table class="xyz_fbap_metalist_table">
 
+<tr><td colspan="2" >
+
+<table class="xyz_fbap_meta_acclist_table"><!-- FB META -->
+
+
+<tr>
+		<td colspan="2" class="xyz_fbap_pleft15 xyz_fbap_meta_acclist_table_td"><strong>Facebook</strong>
+		</td>
+</tr>
+
+<tr><td colspan="2" valign="top">&nbsp;</td></tr>
+	
+	
 	<tr valign="top">
-		<td>Enable auto publish post to my facebook account
+		<td class="xyz_fbap_pleft15">Enable auto publish post to my facebook account
 		</td>
 		<td><select id="xyz_fbap_post_permission" name="xyz_fbap_post_permission"
 			onchange="displaycheck_fbap()"><option value="0"
@@ -102,7 +128,7 @@ function dethide_fbap(id)
 		</td>
 	</tr>
 	<tr valign="top" id="fpabpmd">
-		<td>Posting method
+		<td class="xyz_fbap_pleft15">Posting method
 		</td>
 		<td><select id="xyz_fbap_po_method" name="xyz_fbap_po_method">
 				<option value="3"
@@ -127,7 +153,7 @@ function dethide_fbap(id)
 		</td>
 	</tr>
 	<tr valign="top" id="fpabpmf">
-		<td>Message format for posting <img src="<?php echo $heimg?>"
+		<td class="xyz_fbap_pleft15">Message format for posting <img src="<?php echo $heimg?>"
 						onmouseover="detdisplay_fbap('xyz_fbap')" onmouseout="dethide_fbap('xyz_fbap')">
 						<div id="xyz_fbap" class="informationdiv" style="display: none;">
 							{POST_TITLE} - Insert the title of your post.<br />{PERMALINK} -
@@ -138,14 +164,40 @@ function dethide_fbap(id)
 							of the author.
 						</div>
 		</td>
-		<td>
-		<textarea id="xyz_fbap_message" name="xyz_fbap_message"><?php echo esc_textarea(get_option('xyz_fbap_message'));?></textarea>
-		</td>
-	</tr>
+	<td>
+	<select name="xyz_fbap_info" id="xyz_fbap_info" onchange="xyz_fbap_info_insert(this)">
+		<option value ="0" selected="selected">--Select--</option>
+		<option value ="1">{POST_TITLE}  </option>
+		<option value ="2">{PERMALINK} </option>
+		<option value ="3">{POST_EXCERPT}  </option>
+		<option value ="4">{POST_CONTENT}   </option>
+		<option value ="5">{BLOG_TITLE}   </option>
+		<option value ="6">{USER_NICENAME}   </option>
+		</select> </td></tr><tr><td>&nbsp;</td><td>
+		<textarea id="xyz_fbap_message"  name="xyz_fbap_message" style="height:80px !important;" ><?php echo esc_textarea(get_option('xyz_fbap_message'));?></textarea>
+	</td></tr>
+	
+	</table>
+	
+	</td></tr>
+	
 		
 </table>
 <script type="text/javascript">
 	displaycheck_fbap();
+
+	function xyz_fbap_info_insert(inf){
+		
+	    var e = document.getElementById("xyz_fbap_info");
+	    var ins_opt = e.options[e.selectedIndex].text;
+	    if(ins_opt=="0")
+	    	ins_opt="";
+	    var str=jQuery("textarea#xyz_fbap_message").val()+ins_opt;
+	    jQuery("textarea#xyz_fbap_message").val(str);
+	    jQuery('#xyz_fbap_info :eq(0)').prop('selected', true);
+	    jQuery("textarea#xyz_fbap_message").focus();
+
+	}
 	</script>
 <?php 
 }

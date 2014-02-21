@@ -66,9 +66,9 @@ Facebook Auto Publish automatically publishes posts from your blog to your  Face
 		<td><img src="<?php echo plugins_url("images/tick.png",__FILE__);?>">
 		</td>
 	</tr>
-	<!-- Posting Options  -->
+		<!-- Posting Options  -->
 	<tr>
-		<td rowspan="15"><h4>Posting Options</h4></td>
+		<td rowspan="10"><h4>Posting Options</h4></td>
 		<td>Publish to facebook profile/pages</td>
 		<td><img src="<?php echo plugins_url("images/tick.png",__FILE__);?>">
 		</td>
@@ -85,7 +85,7 @@ Facebook Auto Publish automatically publishes posts from your blog to your  Face
 	</tr>
 	
 	<tr>
-		<td>Publish to linkedin profile</td>
+		<td>Publish to linkedin profile/company pages/groups</td>
 		<td><img src="<?php echo plugins_url("images/cross.png",__FILE__);?>">
 		</td>
 		<td><img src="<?php echo plugins_url("images/tick.png",__FILE__);?>">
@@ -107,33 +107,10 @@ Facebook Auto Publish automatically publishes posts from your blog to your  Face
 		<td><img src="<?php echo plugins_url("images/tick.png",__FILE__);?>">
 		</td>
 	</tr>
-	<tr>
-		<td>Publish images along with post content</td>
-		<td><img src="<?php echo plugins_url("images/tick.png",__FILE__);?>">
-		</td>
-		<td><img src="<?php echo plugins_url("images/tick.png",__FILE__);?>">
-		</td>
-	</tr>
 	
 	<tr>
 		<td>Option to republish existing posts</td>
 		<td><img src="<?php echo plugins_url("images/cross.png",__FILE__);?>">
-		</td>
-		<td><img src="<?php echo plugins_url("images/tick.png",__FILE__);?>">
-		</td>
-	</tr>
-	
-	<tr>
-		<td>Filter posts to publish based on categories</td>
-		<td><img src="<?php echo plugins_url("images/tick.png",__FILE__);?>">
-		</td>
-		<td><img src="<?php echo plugins_url("images/tick.png",__FILE__);?>">
-		</td>
-	</tr>
-	
-	<tr>
-		<td>Filter posts to publish based on custom post types</td>
-		<td><img src="<?php echo plugins_url("images/tick.png",__FILE__);?>">
 		</td>
 		<td><img src="<?php echo plugins_url("images/tick.png",__FILE__);?>">
 		</td>
@@ -156,7 +133,7 @@ Facebook Auto Publish automatically publishes posts from your blog to your  Face
 	</tr>
 	
 	<tr>
-		<td>Seperate image url for publishing to multiple social media accounts</td>
+		<td>Hash Tags support for Facebook, Twitter, Pinterest and Google plus</td>
 		<td><img src="<?php echo plugins_url("images/cross.png",__FILE__);?>">
 		</td>
 		<td><img src="<?php echo plugins_url("images/tick.png",__FILE__);?>">
@@ -164,12 +141,88 @@ Facebook Auto Publish automatically publishes posts from your blog to your  Face
 	</tr>
 	
 	<tr>
+		<td>Enable/Disable SSL peer verification</td>
+		<td><img src="<?php echo plugins_url("images/tick.png",__FILE__);?>">
+		</td>
+		<td><img src="<?php echo plugins_url("images/tick.png",__FILE__);?>">
+		</td>
+	</tr>
+	
+	<!-- Image Options  -->
+	
+	<tr>
+	<td rowspan="3"><h4>Image Options</h4></td>
+		<td>Publish images along with post content</td>
+		<td><img src="<?php echo plugins_url("images/tick.png",__FILE__);?>">
+		</td>
+		<td><img src="<?php echo plugins_url("images/tick.png",__FILE__);?>">
+		</td>
+	</tr>
+	
+	
+	<tr>
+		<td>Seperate image url for publishing to multiple social media accounts</td>
+		<td><img src="<?php echo plugins_url("images/cross.png",__FILE__);?>">
+		</td>
+		<td><img src="<?php echo plugins_url("images/tick.png",__FILE__);?>">
+		</td>
+	</tr>
+	
+		<tr>
+		<td>Option to specify preference from featured image, post content, post meta and open graph tags</td>
+		<td><img src="<?php echo plugins_url("images/cross.png",__FILE__);?>">
+		</td>
+		<td><img src="<?php echo plugins_url("images/tick.png",__FILE__);?>">
+		</td>
+	</tr>
+	
+	<!-- Filter Options  -->
+		
+	<tr>
+	<td rowspan="4"><h4>Filter Options</h4></td>
+		<td>Filter posts to publish based on categories</td>
+		<td><img src="<?php echo plugins_url("images/tick.png",__FILE__);?>">
+		</td>
+		<td><img src="<?php echo plugins_url("images/tick.png",__FILE__);?>">
+		</td>
+	</tr>
+	
+	<tr>
+		<td>Filter posts to publish based on custom post types</td>
+		<td><img src="<?php echo plugins_url("images/tick.png",__FILE__);?>">
+		</td>
+		<td><img src="<?php echo plugins_url("images/tick.png",__FILE__);?>">
+		</td>
+	</tr>
+	
+	<tr>
+		<td>Category filter for individual accounts</td>
+		<td><img src="<?php echo plugins_url("images/cross.png",__FILE__);?>">
+		</td>
+		<td><img src="<?php echo plugins_url("images/tick.png",__FILE__);?>">
+		</td>
+	</tr>
+	
+	<tr>
+		<td>Custom post type filter for individual accounts</td>
+		<td><img src="<?php echo plugins_url("images/cross.png",__FILE__);?>">
+		</td>
+		<td><img src="<?php echo plugins_url("images/tick.png",__FILE__);?>">
+		</td>
+	</tr>
+	
+	
+	<!-- Scheduling  -->
+		
+	<tr>
+	<td rowspan="3"><h4>Scheduling</h4></td>
 		<td>Instantaneous post publishing</td>
 		<td><img src="<?php echo plugins_url("images/tick.png",__FILE__);?>">
 		</td>
 		<td><img src="<?php echo plugins_url("images/tick.png",__FILE__);?>">
 		</td>
 	</tr>
+	
 	<tr>
 		<td>Scheduled post publishing using cron</td>
 		<td><img src="<?php echo plugins_url("images/cross.png",__FILE__);?>">
@@ -188,9 +241,11 @@ Facebook Auto Publish automatically publishes posts from your blog to your  Face
 	</tr>
 	
 	
+	
+	
 	<!-- Publishing History  -->
 	<tr>
-		<td rowspan="2"><h4>Publishing History</h4></td>
+		<td rowspan="4"><h4>Publishing History</h4></td>
 		<td>View auto publish history</td>
 		<td><img src="<?php echo plugins_url("images/cross.png",__FILE__);?>">
 		</td>
@@ -205,6 +260,21 @@ Facebook Auto Publish automatically publishes posts from your blog to your  Face
 		</td>
 	</tr>
 	
+	<tr>
+		<td>Option to republish post</td>
+		<td><img src="<?php echo plugins_url("images/cross.png",__FILE__);?>">
+		</td>
+		<td><img src="<?php echo plugins_url("images/tick.png",__FILE__);?>">
+		</td>
+	</tr>
+	
+	<tr>
+		<td>Option to reschedule publishing</td>
+		<td><img src="<?php echo plugins_url("images/cross.png",__FILE__);?>">
+		</td>
+		<td><img src="<?php echo plugins_url("images/tick.png",__FILE__);?>">
+		</td>
+	</tr>
 	<!-- Installation and Support -->
 	<tr>
 		<td rowspan="2"><h4>Installation and Support</h4></td>

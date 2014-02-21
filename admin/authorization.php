@@ -1,5 +1,4 @@
 <?php
-
 $app_id = get_option('xyz_fbap_application_id');
 $app_secret = get_option('xyz_fbap_application_secret');
 $redirecturl=admin_url('admin.php?page=facebook-auto-publish-settings&auth=1');
@@ -49,9 +48,15 @@ if(isset($_COOKIE['xyz_fbap_session_state']) && isset($_REQUEST['state']) && ($_
 		update_option('xyz_fbap_fb_token',$access_token);
 		update_option('xyz_fbap_af',0);
 	}
+	else
+	{
+		header("Location:".admin_url('admin.php?page=facebook-auto-publish-settings&msg=3'));
+		exit();
+	}
 }
 else {
-	//echo("The state does not match. You may be a victim of CSRF.");
+	//header("Location:".admin_url('admin.php?page=facebook-auto-publish-settings&msg=2'));
+	//exit();
 }
 
 

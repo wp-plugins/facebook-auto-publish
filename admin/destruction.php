@@ -44,6 +44,9 @@ function fbap_free_destroy()
 	delete_option('xyz_fbap_include_pages');
 	delete_option('xyz_fbap_include_categories');
 	delete_option('xyz_fbap_include_customposttypes');
+	delete_option('xyz_fbap_peer_verification');
+	delete_option('xyz_fbap_post_logs');
+	delete_option('xyz_twap_premium_version_ads');
 	
 }
 
