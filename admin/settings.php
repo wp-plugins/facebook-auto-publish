@@ -93,7 +93,7 @@ if(isset($_POST['fb']))
 		update_option('xyz_fbap_po_method',$posting_method);
 		update_option('xyz_fbap_message',$messagetopost);
 
-		$url = 'https://graph.facebook.com/'.$fbid;
+		$url = 'https://graph.facebook.com/'.XYZ_FBAP_FB_API_VERSION."/me";
 		$contentget=wp_remote_get($url);$page_id="";
 		if(is_array($contentget))
 		{
@@ -339,7 +339,7 @@ function dethide(id)
 					do
 					{
 						$result1="";$pagearray1="";
-						$pp=wp_remote_get("https://graph.facebook.com/$fbid/accounts?access_token=$xyz_acces_token&limit=$limit&offset=$offset");
+						$pp=wp_remote_get("https://graph.facebook.com/".XYZ_FBAP_FB_API_VERSION."/me/accounts?access_token=$xyz_acces_token&limit=$limit&offset=$offset");
 						if(is_array($pp))
 						{
 							$result1=$pp['body'];

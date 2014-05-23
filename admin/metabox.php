@@ -75,12 +75,16 @@ var fcheckid=document.getElementById("xyz_fbap_post_permission").value;
 if(fcheckid==1)
 {
 	document.getElementById("fpabpmd").style.display='';	
-	document.getElementById("fpabpmf").style.display='';	
+	document.getElementById("fpabpmf").style.display='';
+	document.getElementById("fpabpmftarea").style.display='';
+
+		
 }
 else
 {
 	document.getElementById("fpabpmd").style.display='none';	
 	document.getElementById("fpabpmf").style.display='none';	
+	document.getElementById("fpabpmftarea").style.display='none';	
 }
 
 
@@ -116,9 +120,9 @@ function dethide_fbap(id)
 	
 	
 	<tr valign="top">
-		<td class="xyz_fbap_pleft15">Enable auto publish post to my facebook account
+		<td class="xyz_fbap_pleft15" width="60%">Enable auto publish post to my facebook account
 		</td>
-		<td><select id="xyz_fbap_post_permission" name="xyz_fbap_post_permission"
+		<td width="40%"><select id="xyz_fbap_post_permission" name="xyz_fbap_post_permission"
 			onchange="displaycheck_fbap()"><option value="0"
 			<?php  if(get_option('xyz_fbap_post_prmission')==0) echo 'selected';?>>
 					No</option>
@@ -173,7 +177,9 @@ function dethide_fbap(id)
 		<option value ="4">{POST_CONTENT}   </option>
 		<option value ="5">{BLOG_TITLE}   </option>
 		<option value ="6">{USER_NICENAME}   </option>
-		</select> </td></tr><tr><td>&nbsp;</td><td>
+		</select> </td></tr>
+		
+		<tr id="fpabpmftarea"><td>&nbsp;</td><td>
 		<textarea id="xyz_fbap_message"  name="xyz_fbap_message" style="height:80px !important;" ><?php echo esc_textarea(get_option('xyz_fbap_message'));?></textarea>
 	</td></tr>
 	

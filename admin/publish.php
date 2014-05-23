@@ -88,6 +88,12 @@ function xyz_fbap_link_publish($post_ID) {
 			}
 		}
 
+
+		$pluginName = 'bitly/bitly.php';
+		
+		if (is_plugin_active($pluginName)) {
+			remove_all_filters('post_link');
+		}
 		$link = get_permalink($postpp->ID);
 
 
@@ -160,8 +166,12 @@ function xyz_fbap_link_publish($post_ID) {
 					$acces_token=$useracces_token;$page_id=$user_page_id;
 				}
 
-					
-				$fb=new FBAPFacebook();
+				$fb=new FBAPFacebook(array(
+						'appId'  => $acces_token,
+						'secret' => $appsecret,
+						'cookie' => true
+				));
+				//$fb=new FBAPFacebook();
 				$message1=str_replace('{POST_TITLE}', $name, $message);
 				$message2=str_replace('{BLOG_TITLE}', $caption,$message1);
 				$message3=str_replace('{PERMALINK}', $link, $message2);
