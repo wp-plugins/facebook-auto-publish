@@ -78,13 +78,14 @@ if(isset($_COOKIE['xyz_fbap_session_state']) && isset($_REQUEST['state']) && ($_
 		if($fbap_pages_ids1!="")
 			$fbap_pages_ids0=explode(",",$fbap_pages_ids1);
 		
-		$fbap_pages_ids=array();
+		$fbap_pages_ids=array();$profile_flg=0;
 		for($i=0;$i<count($fbap_pages_ids0);$i++)
 		{
 		if($fbap_pages_ids0[$i]!="-1")
 			$fbap_pages_ids[$i]=trim(substr($fbap_pages_ids0[$i],0,strpos($fbap_pages_ids0[$i],"-")));
-			else
-			$fbap_pages_ids[$i]=$fbap_pages_ids0[$i];
+			else{
+			$fbap_pages_ids[$i]=$fbap_pages_ids0[$i];$profile_flg=1;
+			}
 		}
 		
 		
@@ -94,13 +95,19 @@ if(isset($_COOKIE['xyz_fbap_session_state']) && isset($_REQUEST['state']) && ($_
 			$newpgs.=$data[$i]->id."-".$data[$i]->access_token.",";
 		}
 		$newpgs=rtrim($newpgs,",");
-		
+		if($profile_flg==1)
+			$newpgs=$newpgs.",-1";
 		update_option('xyz_fbap_pages_ids',$newpgs);
 	}
 	else
 	{
-		header("Location:".admin_url('admin.php?page=facebook-auto-publish-settings&msg=3'));
-		exit();
+		
+		$xyz_fbap_af=get_option('xyz_fbap_af');
+		
+		if($xyz_fbap_af==1){
+			header("Location:".admin_url('admin.php?page=facebook-auto-publish-settings&msg=3'));
+			exit();
+		}
 	}
 }
 else {
