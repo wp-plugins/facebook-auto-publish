@@ -3,7 +3,7 @@ Contributors: f1logic
 Donate link: http://xyzscripts.com/donate/
 Tags:  facebook, facebook auto publish, publish post to facebook, add link to facebook, facebook publishing, post to facebook, post to fb, social media auto publish, social media publishing, social network auto publish, social media, social network
 Requires at least: 2.8
-Tested up to: 3.9.1
+Tested up to: 4.0
 Stable tag: 1.1.2
 License: GPLv2 or later
 
