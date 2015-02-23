@@ -50,13 +50,15 @@ function fbap_install_free()
 	update_option('xyz_fbap_free_version', $currentversion);
 	
 	add_option('xyz_fbap_include_pages', '0');
+	add_option('xyz_fbap_include_posts', '1');
 	add_option('xyz_fbap_include_categories', 'All');
 	add_option('xyz_fbap_include_customposttypes', '');
 	
 	add_option('xyz_fbap_peer_verification', '1');
 	add_option('xyz_fbap_post_logs', '');
 	add_option('xyz_fbap_premium_version_ads', '1');
-
+	add_option('xyz_fbap_default_selection_edit', '0');
+	
 }
 
 

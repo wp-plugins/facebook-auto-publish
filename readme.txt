@@ -3,8 +3,8 @@ Contributors: f1logic
 Donate link: http://xyzscripts.com/donate/
 Tags:  facebook, facebook auto publish, publish post to facebook, add link to facebook, facebook publishing, post to facebook, post to fb, social media auto publish, social media publishing, social network auto publish, social media, social network
 Requires at least: 2.8
-Tested up to: 4.0
-Stable tag: 1.1.2
+Tested up to: 4.1
+Stable tag: 1.2
 License: GPLv2 or later
 
 Publish posts automatically to Facebook page or profile.
@@ -121,6 +121,12 @@ More questions ? [Drop a mail](http://xyzscripts.com/members/support/ "XYZScript
 2. Publishing options while creating a post.
 
 == Changelog ==
+
+= Facebook Auto Publish 1.2 =
+* Option to configure auto publish settings while editing posts/pages
+* General setting to enable/disable post publishing
+* Added auto publish for scheduled post
+* Fixed issue related to \" in auto publish
 
 = Facebook Auto Publish 1.1.2 =
 * Fixed auto-publish of scheduled post

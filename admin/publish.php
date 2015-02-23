@@ -2,6 +2,12 @@
 
 add_action('publish_post', 'xyz_fbap_link_publish');
 add_action('publish_page', 'xyz_fbap_link_publish');
+add_action('future_to_publish', 'xyz_link_fbap_future_to_publish');
+
+function xyz_link_fbap_future_to_publish($post){
+	$postid =$post->ID;
+	xyz_fbap_link_publish($postid);
+}
 
 
 
@@ -14,14 +20,22 @@ foreach ($carr  as $cstyps ) {
 
 function xyz_fbap_link_publish($post_ID) {
 	
+	$_POST_CPY=$_POST;
+	$_POST=stripslashes_deep($_POST);
 	if(isset($_POST['xyz_fbap_hidden_meta']) && $_POST['xyz_fbap_hidden_meta']==1)
+	{
+		$_POST=$_POST_CPY;
 		return ;
+	}
 	
 	$get_post_meta=get_post_meta($post_ID,"xyz_fbap",true);
 	if($get_post_meta!=1)
 		add_post_meta($post_ID, "xyz_fbap", "1");
-	else 
+	else
+	{
+		$_POST=$_POST_CPY;
 		return;
+	}
 	global $current_user;
 	get_currentuserinfo();
 	
@@ -52,7 +66,7 @@ function xyz_fbap_link_publish($post_ID) {
 	
 	foreach( $entries0 as $entry ) {			
 	$user_nicename=$entry->user_nicename;}
-	if ($postpp->post_status == 'publish' || $postpp->post_status == 'future')
+	if ($postpp->post_status == 'publish')
 	{
 		$posttype=$postpp->post_type;
 		$fb_publish_status=array();
@@ -62,11 +76,20 @@ function xyz_fbap_link_publish($post_ID) {
 
 			$xyz_fbap_include_pages=get_option('xyz_fbap_include_pages');
 			if($xyz_fbap_include_pages==0)
+			{
+				$_POST=$_POST_CPY;
 				return;
+			}
 		}
 			
 		if($posttype=="post")
 		{
+			$xyz_fbap_include_posts=get_option('xyz_fbap_include_posts');
+			if($xyz_fbap_include_posts==0)
+			{
+				$_POST=$_POST_CPY;return;
+			}
+			
 			$xyz_fbap_include_categories=get_option('xyz_fbap_include_categories');
 			if($xyz_fbap_include_categories!="All")
 			{
@@ -83,7 +106,10 @@ function xyz_fbap_link_publish($post_ID) {
 					
 					
 				if($retflag==1)
+				{
+					$_POST=$_POST_CPY;
 					return;
+				}
 			}
 		}
 
@@ -144,6 +170,7 @@ function xyz_fbap_link_publish($post_ID) {
 		
 		if($useracces_token!="" && $appsecret!="" && $appid!="" && $post_permissin==1)
 		{
+			$description_li=xyz_fbap_string_limit($description, 10000);
 
 			$user_page_id=get_option('xyz_fbap_fb_numericid');
 
@@ -189,7 +216,7 @@ function xyz_fbap_link_publish($post_ID) {
 							'link' => $link,
 							'name' => $name,
 							'caption' => $caption,
-							'description' => $description,
+							'description' => $description_li,
 							'actions' => array(array('name' => $name,
 									'link' => $link)),
 							'picture' => $attachmenturl
@@ -203,7 +230,7 @@ function xyz_fbap_link_publish($post_ID) {
 							'link' => $link,
 							'name' => $name,
 							'caption' => $caption,
-							'description' => $description,
+							'description' => $description_li,
 							'picture' => $attachmenturl
 
 
@@ -284,7 +311,7 @@ function xyz_fbap_link_publish($post_ID) {
 		
 	}
 	
-
+	$_POST=$_POST_CPY;
 }
 
 ?>

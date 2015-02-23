@@ -308,6 +308,11 @@ width: 100%;
 	background: linear-gradient(to top, #ECECEC, #F9F9F9) repeat scroll 0 0 #F1F1F1;border-bottom: 1px solid #DFDFDF;height: 25px;
 }
 
+.xyz_fbap_meta_acclist_table select ,.xyz_fbap_meta_acclist_table textarea{
+    width: 200px;padding: 5px !important;height: 2.35em !important;
+}
+
+
 a {
 	text-decoration: none;
 }

@@ -43,6 +43,7 @@ if(isset($_COOKIE['xyz_fbap_session_state']) && isset($_REQUEST['state']) && ($_
 			$access_token = $params['access_token'];
 		}
 	}
+	
 	if($access_token!="")
 	{
 		
