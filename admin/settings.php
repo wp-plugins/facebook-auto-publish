@@ -245,6 +245,7 @@ function dethide(id)
 					<td><input id="xyz_fbap_application_id"
 						name="xyz_fbap_application_id" type="text"
 						value="<?php if($ms1=="") {echo esc_html(get_option('xyz_fbap_application_id'));}?>" />
+						<a href="http://docs.xyzscripts.com/wordpress-plugins/social-media-auto-publish/creating-facebook-application" target="_blank">How can I create a Facebook Application?</a>
 					</td>
 				</tr>
 
@@ -262,6 +263,7 @@ function dethide(id)
 					</td>
 					<td><input id="xyz_fbap_fb_id" name="xyz_fbap_fb_id" type="text"
 						value="<?php if($ms3=="") {echo esc_html(get_option('xyz_fbap_fb_id'));}?>" />
+						<a href="http://kb.xyzscripts.com/how-can-i-find-my-facebook-user-id" target="_blank">How can I find my Facebook user id?</a>
 					</td>
 				</tr>
 				<tr valign="top">
@@ -482,7 +484,7 @@ function dethide(id)
 
 				<tr valign="top">
 
-					<td  colspan="1" width="50%">Publish wordpress `pages` to social media
+					<td  colspan="1" width="50%">Publish wordpress `pages` to facebook
 					</td>
 					<td><select name="xyz_fbap_include_pages">
 
@@ -497,7 +499,7 @@ function dethide(id)
 
 				<tr valign="top">
 
-					<td  colspan="1">Publish wordpress `posts` to social media
+					<td  colspan="1">Publish wordpress `posts` to facebook
 					</td>
 					<td><select name="xyz_fbap_include_posts" onchange="xyz_fbap_show_postCategory(this.value);">
 
