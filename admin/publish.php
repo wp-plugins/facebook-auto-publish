@@ -22,20 +22,20 @@ function xyz_fbap_link_publish($post_ID) {
 	
 	$_POST_CPY=$_POST;
 	$_POST=stripslashes_deep($_POST);
-	if(isset($_POST['xyz_fbap_hidden_meta']) && $_POST['xyz_fbap_hidden_meta']==1)
-	{
-		$_POST=$_POST_CPY;
-		return ;
-	}
+// 	if(isset($_POST['xyz_fbap_hidden_meta']) && $_POST['xyz_fbap_hidden_meta']==1)
+// 	{
+// 		$_POST=$_POST_CPY;
+// 		return ;
+// 	}
 	
 	$get_post_meta=get_post_meta($post_ID,"xyz_fbap",true);
 	if($get_post_meta!=1)
 		add_post_meta($post_ID, "xyz_fbap", "1");
-	else
-	{
-		$_POST=$_POST_CPY;
-		return;
-	}
+// 	else
+// 	{
+// 		$_POST=$_POST_CPY;
+// 		return;
+// 	}
 	global $current_user;
 	get_currentuserinfo();
 	
@@ -124,8 +124,7 @@ function xyz_fbap_link_publish($post_ID) {
 
 
 
-		$content = $postpp->post_content;apply_filters('the_content', $content);
-
+		$content = $postpp->post_content;$content = apply_filters('the_content', $content);
 		$excerpt = $postpp->post_excerpt;apply_filters('the_excerpt', $excerpt);
 		if($excerpt=="")
 		{
