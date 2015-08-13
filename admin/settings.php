@@ -14,6 +14,26 @@ $redirecturl=admin_url('admin.php?page=facebook-auto-publish-settings&auth=1');
 
 require( dirname( __FILE__ ) . '/authorization.php' );
 
+
+if($_GET['fbap_notice'] == 'hide')
+{
+	update_option('xyz_fbap_dnt_shw_notice', "hide");
+	?>
+<style type='text/css'>
+#fb_notice_td
+{
+display:none;
+}
+</style>
+<div class="system_notice_area_style1" id="system_notice_area">
+Thanks again for using the plugin. We will never show the message again.
+ &nbsp;&nbsp;&nbsp;<span
+		id="system_notice_area_dismiss">Dismiss</span>
+</div>
+<?php
+}
+
+
 $erf=0;
 if(isset($_POST['fb']))
 {
@@ -352,10 +372,10 @@ function dethide(id)
 						else
 							break;
 						$offset += $limit;
-						if(!is_array($pagearray1->paging))
-							break;
-					}while(array_key_exists("next", $pagearray1->paging));
-
+// 						if(!is_array($pagearray1->paging))
+// 							break;
+// 					}while(array_key_exists("next", $pagearray1->paging));
+					}while(isset($pagearray1->paging->next));
 
 
 
@@ -440,19 +460,34 @@ function dethide(id)
         $xyz_fbap_premium_version_ads=$_POST['xyz_fbap_premium_version_ads'];
         $xyz_fbap_default_selection_edit=$_POST['xyz_fbap_default_selection_edit'];
         
+        $xyz_fbap_future_to_publish=$_POST['xyz_fbap_future_to_publish'];
 		$fbap_customtype_ids="";
 
+		$xyz_fbap_applyfilters="";
+		if(isset($_POST['xyz_fbap_applyfilters']))
+			$xyz_fbap_applyfilters=$_POST['xyz_fbap_applyfilters'];
+		
+		
 		if($xyz_customtypes!="")
 		{
 			for($i=0;$i<count($xyz_customtypes);$i++)
 			{
 				$fbap_customtype_ids.=$xyz_customtypes[$i].",";
 			}
-
 		}
 		$fbap_customtype_ids=rtrim($fbap_customtype_ids,',');
 
-
+		$xyz_fbap_applyfilters_val="";
+		if($xyz_fbap_applyfilters!="")
+		{
+			for($i=0;$i<count($xyz_fbap_applyfilters);$i++)
+			{
+				$xyz_fbap_applyfilters_val.=$xyz_fbap_applyfilters[$i].",";
+			}
+		}
+		$xyz_fbap_applyfilters_val=rtrim($xyz_fbap_applyfilters_val,',');
+		
+		update_option('xyz_fbap_apply_filters',$xyz_fbap_applyfilters_val);
 		update_option('xyz_fbap_include_pages',$xyz_fbap_include_pages);
 		update_option('xyz_fbap_include_posts',$xyz_fbap_include_posts);
 		if($xyz_fbap_include_posts==0)
@@ -463,13 +498,15 @@ function dethide(id)
 		update_option('xyz_fbap_peer_verification',$xyz_fbap_peer_verification);
 		update_option('xyz_fbap_premium_version_ads',$xyz_fbap_premium_version_ads);
 		update_option('xyz_fbap_default_selection_edit',$xyz_fbap_default_selection_edit);
+		update_option('xyz_fbap_future_to_publish',$xyz_fbap_future_to_publish);
 	}
-
+	$xyz_fbap_future_to_publish=get_option('xyz_fbap_future_to_publish');
 	$xyz_credit_link=get_option('xyz_credit_link');
 	$xyz_fbap_include_pages=get_option('xyz_fbap_include_pages');
 	$xyz_fbap_include_posts=get_option('xyz_fbap_include_posts');
 	$xyz_fbap_include_categories=get_option('xyz_fbap_include_categories');
 	$xyz_fbap_include_customposttypes=get_option('xyz_fbap_include_customposttypes');
+	$xyz_fbap_apply_filters=get_option('xyz_fbap_apply_filters');
 	$xyz_fbap_peer_verification=esc_html(get_option('xyz_fbap_peer_verification'));
 	$xyz_fbap_premium_version_ads=esc_html(get_option('xyz_fbap_premium_version_ads'));
 	$xyz_fbap_default_selection_edit=esc_html(get_option('xyz_fbap_default_selection_edit'));
@@ -618,9 +655,51 @@ function dethide(id)
 				<option value ="0" <?php if($xyz_fbap_peer_verification=='0') echo 'selected'; ?> >Disable </option>
 				</select> 
 				</td></tr>
-								
+					
+				<tr valign="top">
+					<td scope="row" colspan="1">Apply filters during publishing	</td>
+					<td>
+					<?php 
+					$ar2=explode(",",$xyz_fbap_apply_filters);
+					for ($i=0;$i<3;$i++ ) {
+						$filVal=$i+1;
+						
+						if($filVal==1)
+							$filName='the_content';
+						else if($filVal==2)
+							$filName='the_excerpt';
+						else if($filVal==3)
+							$filName='the_title';
+						else $filName='';
+						
+						echo '<input type="checkbox" name="xyz_fbap_applyfilters[]"  value="'.$filVal.'" ';
+						if(in_array($filVal, $ar2))
+						{
+							echo 'checked="checked"/>';
+						}
+						else
+							echo '/>';
+					
+						echo '<label>'.$filName.'</label><br/>';
+					
+					}
+					
+					?>
+					</td>
+				</tr>	
+					
+				<tr valign="top">
 
-
+					<td scope="row" colspan="1">Enable "future_to_publish" hook	</td>
+					<td><select name="xyz_fbap_future_to_publish" id="xyz_fbap_future_to_publish" >
+					
+					<option value ="1" <?php if($xyz_fbap_future_to_publish=='1') echo 'selected'; ?> >Yes </option>
+					
+					<option value ="2" <?php if($xyz_fbap_future_to_publish=='2') echo 'selected'; ?> >No </option>
+					</select>
+					</td>
+				</tr>
+					
 				<tr valign="top">
 
 					<td  colspan="1">Enable credit link to author

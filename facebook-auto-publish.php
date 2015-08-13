@@ -3,7 +3,7 @@
  Plugin Name: Facebook Auto Publish
 Plugin URI: http://xyzscripts.com/wordpress-plugins/facebook-auto-publish/
 Description:   Publish posts automatically from your blog to Facebook social media. You can publish your posts to Facebook as simple text message, text message with image or as attached link to your blog. The plugin supports filtering posts by custom post-types and categories.
-Version: 1.2.3
+Version: 1.2.4
 Author: xyzscripts.com
 Author URI: http://xyzscripts.com/
 License: GPLv2 or later
@@ -54,6 +54,7 @@ require_once( dirname( __FILE__ ) . '/api/facebook.php' );
 require_once( dirname( __FILE__ ) . '/admin/ajax-backlink.php' );
 require_once( dirname( __FILE__ ) . '/admin/metabox.php' );
 require_once( dirname( __FILE__ ) . '/admin/publish.php' );
+require_once( dirname( __FILE__ ) . '/admin/admin-notices.php' );
 if(get_option('xyz_credit_link')=="fbap"){
 
 	add_action('wp_footer', 'xyz_fbap_credit');

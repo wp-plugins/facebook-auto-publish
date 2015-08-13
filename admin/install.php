@@ -32,7 +32,13 @@ function fbap_install_free()
 	{
 		add_option("xyz_credit_link", '0');
 	}
-
+	
+	$fbap_installed_date = get_option('fbap_installed_date');
+	if ($fbap_installed_date=="") {
+		$fbap_installed_date = time();
+		update_option('fbap_installed_date', $fbap_installed_date);
+	}
+	
 	add_option('xyz_fbap_application_id','');
 	add_option('xyz_fbap_application_secret', '');
 	add_option('xyz_fbap_fb_id', '');
@@ -42,7 +48,8 @@ function fbap_install_free()
 	add_option('xyz_fbap_current_appln_token', '');
 	add_option('xyz_fbap_af', '1'); //authorization flag
 	add_option('xyz_fbap_pages_ids','-1');
-
+	add_option('xyz_fbap_future_to_publish', '1');
+	add_option('xyz_fbap_apply_filters', '');
 	
 
 	$version=get_option('xyz_fbap_free_version');

@@ -85,7 +85,7 @@ Facebook Auto Publish automatically publishes posts from your blog to your  Face
 	</tr>
 	
 	<tr>
-		<td>Publish to linkedin profile/company pages/groups</td>
+		<td>Publish to linkedin profile/company pages</td>
 		<td><img src="<?php echo plugins_url("images/cross.png",__FILE__);?>">
 		</td>
 		<td><img src="<?php echo plugins_url("images/tick.png",__FILE__);?>">
