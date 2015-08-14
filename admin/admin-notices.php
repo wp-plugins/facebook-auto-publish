@@ -60,6 +60,3 @@ if($fbap_installed_date < ( time() - 2952000 ))
 	}
 }
 ?>
-
-
-
