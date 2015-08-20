@@ -149,6 +149,8 @@ function xyz_fbap_link_publish($post_ID) {
 		if($exc_flag==1)
 			$excerpt = apply_filters('the_excerpt', $excerpt);
 		
+		$content = preg_replace('/<script\b[^>]*>(.*?)<\/script>/is', "", $content);
+		$excerpt = preg_replace('/<script\b[^>]*>(.*?)<\/script>/is', "", $excerpt);
 
 		if($excerpt=="")
 		{
