@@ -4,19 +4,20 @@ function wp_fbap_admin_notice()
 	add_thickbox();
 	$sharelink_text_array_fb = array
 						(
-						"I Use Facebook Auto Publish  wordpress plugin from @xyzscriptsdotcom and you should too",
-						"Facebook Auto Publish  wordpress Plugin from @xyzscriptsdotcom is Awesome",
-						"Actually i am looking for a social media Plugin like this. Thanks @xyzscriptsdotcom",
-						"Its very nice to use Facebook Auto Publish  wordpress Plugin from @xyzscriptsdotcom",
-						"I installed Facebook Auto Publish .. from @xyzscriptsdotcom,  It works wonderful",
-						"The Facebook Auto Publish  icon wordpress plugin looks soo nice.. thanks @xyzscriptsdotcom", 
-						"It awesome to use Facebook Auto Publish  wordpress plugin from @xyzscriptsdotcom -",
-						"Facebook Auto Publish  wordpress Plugin that i use Looks awesome and works terrific",
-						"I am using Facebook Auto Publish  Icon wordpress Plugin from @xyzscriptsdotcom I like it!",
-						"Facebook Auto Publish  Icon wordpress plugin is Fantastic Plugin",
-						"Facebook Auto Publish  Icon wordpress plugin was easy to use and works great. thank you!",
-						"Good and flexible wp socialmedia plugin especially for beginners.",
-						"Easily the best socialmedia wordpress plugin of the type I have used ! THANKS! @xyzscriptsdotcom",
+						"I use Facebook Auto Publish wordpress plugin from @xyzscripts and you should too.",
+						"Facebook Auto Publish wordpress plugin from @xyzscripts is awesome",
+						"Thanks @xyzscripts for developing such a wonderful Facebook auto publishing wordpress plugin",
+						"I was looking for a Facebook publishing plugin and I found this. Thanks @xyzscripts",
+						"Its very easy to use Facebook Auto Publish wordpress plugin from @xyzscripts",
+						"I installed Facebook Auto Publish from @xyzscripts,it works flawlessly",
+						"Facebook Auto Publish wordpress plugin that i use works terrific",
+						"I am using Facebook Auto Publish wordpress plugin from @xyzscripts and I like it",
+						"The Facebook Auto Publish plugin from @xyzscripts is simple and works fine",
+						"I've been using this Facebook plugin for a while now and it is really good",
+						"Facebook Auto Publish wordpress plugin is a fantastic plugin",
+						"Facebook Auto Publish wordpress plugin is easy to use and works great. Thank you!",
+						"Good and flexible  Facebook Auto publish plugin especially for beginners",
+						"The best Facebook Auto publish wordpress plugin I have used ! THANKS @xyzscripts",
 						);
 $sharelink_text_fb = array_rand($sharelink_text_array_fb, 1);
 $sharelink_text_fb = $sharelink_text_array_fb[$sharelink_text_fb];
