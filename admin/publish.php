@@ -184,6 +184,7 @@ function xyz_fbap_link_publish($post_ID) {
 
 		$name=strip_tags($name);
 		$name=strip_shortcodes($name);
+		$name=str_replace("&amp;","&",$name);
 		
 		$description=strip_tags($description);		
 		$description=strip_shortcodes($description);
